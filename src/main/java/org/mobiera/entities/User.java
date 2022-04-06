@@ -5,7 +5,15 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
+
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+import org.mobiera.enums.Gender;
+
+import com.vladmihalcea.hibernate.type.basic.PostgreSQLEnumType;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -13,6 +21,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "users")
+@TypeDef(name = "pgsql_enum", typeClass = PostgreSQLEnumType.class)
 public class User {
 
 	@Id
@@ -21,8 +30,8 @@ public class User {
 	@Column(nullable = false, length = 40)
 	public String name;
 
-	@Column(nullable = false,length = 40)
-	public String lastname;
+	@Column(nullable = false, length = 40)
+	public String last_name;
 
 	@Column(nullable = false)
 	public LocalDate date_of_birth;
@@ -33,8 +42,10 @@ public class User {
 	@Column(nullable = false)
 	public String blood_type;
 
+	@Enumerated(EnumType.STRING)
+	@Type(type = "pgsql_enum")
 	@Column(nullable = false)
-	public String gender;
+	public Gender gender;
 
 	public Long getId_number() {
 		return id_number;
@@ -53,11 +64,11 @@ public class User {
 	}
 
 	public String getLastname() {
-		return lastname;
+		return last_name;
 	}
 
 	public void setLastname(String lastname) {
-		this.lastname = lastname;
+		this.last_name = lastname;
 	}
 
 	public LocalDate getDate_of_birth() {
@@ -84,11 +95,11 @@ public class User {
 		this.blood_type = blood_type;
 	}
 
-	public String getGender() {
+	public Gender getGender() {
 		return gender;
 	}
 
-	public void setGender(String gender) {
+	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
 
