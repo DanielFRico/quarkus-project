@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -11,9 +12,10 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
-import org.mobiera.enums.Gender;
-
-import com.vladmihalcea.hibernate.type.basic.PostgreSQLEnumType;
+import org.mobiera.enums.BloodTypeConverter;
+import org.mobiera.enums.BloodTypes;
+import org.mobiera.enums.CustomPostgreSQLEnumType;
+import org.mobiera.enums.GenderTypes;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -21,7 +23,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "users")
-@TypeDef(name = "pgsql_enum", typeClass = PostgreSQLEnumType.class)
+@TypeDef(name = "pgsql_enum", typeClass = CustomPostgreSQLEnumType.class)
 public class User {
 
 	@Id
@@ -39,13 +41,16 @@ public class User {
 	@Column(nullable = false, precision = 3, scale = 2)
 	public BigDecimal height;
 
+	@Enumerated(EnumType.STRING)
+	@Type(type = "pgsql_enum")
+	@Convert(converter = BloodTypeConverter.class)
 	@Column(nullable = false)
-	public String blood_type;
+	public BloodTypes blood_type;
 
 	@Enumerated(EnumType.STRING)
 	@Type(type = "pgsql_enum")
 	@Column(nullable = false)
-	public Gender gender;
+	public GenderTypes gender;
 
 	public Long getId_number() {
 		return id_number;
@@ -87,19 +92,19 @@ public class User {
 		this.height = height;
 	}
 
-	public String getBlood_type() {
+	public BloodTypes getBlood_type() {
 		return blood_type;
 	}
 
-	public void setBlood_type(String blood_type) {
+	public void setBlood_type(BloodTypes blood_type) {
 		this.blood_type = blood_type;
 	}
 
-	public Gender getGender() {
+	public GenderTypes getGender() {
 		return gender;
 	}
 
-	public void setGender(Gender gender) {
+	public void setGender(GenderTypes gender) {
 		this.gender = gender;
 	}
 

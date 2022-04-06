@@ -1,5 +1,5 @@
 package org.mobiera.enums;
 
-public enum Gender {
+public enum GenderTypes {
 	MALE,FEMALE,ND;	
 }
