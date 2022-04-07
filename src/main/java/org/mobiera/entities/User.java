@@ -4,26 +4,29 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Id;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
-import org.mobiera.enums.BloodTypeConverter;
+import org.hibernate.annotations.TypeDefs;
 import org.mobiera.enums.BloodTypes;
-import org.mobiera.enums.CustomPostgreSQLEnumType;
 import org.mobiera.enums.GenderTypes;
+import org.mobiera.utils.PostgreSQLEnumTypeForBloodTypes;
+import org.mobiera.utils.PostgreSQLEnumTypeForGender;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity(name = "users")
-@TypeDef(name = "pgsql_enum", typeClass = CustomPostgreSQLEnumType.class)
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@TypeDefs({ @TypeDef(name = "pgsql_blood_type_enum", typeClass = PostgreSQLEnumTypeForBloodTypes.class),
+		@TypeDef(name = "pgsql_gender_enum", typeClass = PostgreSQLEnumTypeForGender.class) })
 public class User {
 
 	@Id
@@ -41,71 +44,12 @@ public class User {
 	@Column(nullable = false, precision = 3, scale = 2)
 	public BigDecimal height;
 
-	@Enumerated(EnumType.STRING)
-	@Type(type = "pgsql_enum")
-	@Convert(converter = BloodTypeConverter.class)
+	@Type(type = "pgsql_blood_type_enum")
 	@Column(nullable = false)
 	public BloodTypes blood_type;
 
-	@Enumerated(EnumType.STRING)
-	@Type(type = "pgsql_enum")
+	@Type(type = "pgsql_gender_enum")
 	@Column(nullable = false)
 	public GenderTypes gender;
-
-	public Long getId_number() {
-		return id_number;
-	}
-
-	public void setId_number(Long id_number) {
-		this.id_number = id_number;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getLastname() {
-		return last_name;
-	}
-
-	public void setLastname(String lastname) {
-		this.last_name = lastname;
-	}
-
-	public LocalDate getDate_of_birth() {
-		return date_of_birth;
-	}
-
-	public void setDate_of_birth(LocalDate date_of_birth) {
-		this.date_of_birth = date_of_birth;
-	}
-
-	public BigDecimal getHeight() {
-		return height;
-	}
-
-	public void setHeight(BigDecimal height) {
-		this.height = height;
-	}
-
-	public BloodTypes getBlood_type() {
-		return blood_type;
-	}
-
-	public void setBlood_type(BloodTypes blood_type) {
-		this.blood_type = blood_type;
-	}
-
-	public GenderTypes getGender() {
-		return gender;
-	}
-
-	public void setGender(GenderTypes gender) {
-		this.gender = gender;
-	}
 
 }

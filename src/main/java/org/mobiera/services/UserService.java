@@ -17,7 +17,6 @@ public class UserService {
 	UserRepository userRepository;
 
 	@GET
-	@Path("/list")
 	public Response getUsers() {
 		try {
 			return Response.ok(userRepository.listAll()).status(Response.Status.OK).build();

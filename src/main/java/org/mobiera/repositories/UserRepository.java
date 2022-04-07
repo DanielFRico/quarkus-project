@@ -8,6 +8,5 @@ import org.mobiera.entities.User;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 
 @ApplicationScoped
-public class UserRepository implements PanacheRepositoryBase<User,Id>{
-
+public class UserRepository implements PanacheRepositoryBase<User, Id> {
 }
