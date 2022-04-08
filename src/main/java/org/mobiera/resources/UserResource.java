@@ -1,4 +1,4 @@
-package org.mobiera.services;
+package org.mobiera.resources;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -8,10 +8,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
 import org.mobiera.entities.User;
-import org.mobiera.repositories.UserRepository;
+import org.mobiera.services.UserRepository;
 
 @Path("/user")
-public class UserService {
+public class UserResource {
 
 	@Inject
 	UserRepository userRepository;

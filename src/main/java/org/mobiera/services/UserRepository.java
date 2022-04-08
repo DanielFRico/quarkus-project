@@ -1,4 +1,4 @@
-package org.mobiera.repositories;
+package org.mobiera.services;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.Id;
